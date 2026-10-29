@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ayush Brijesh Patel</title>
+<meta name="description" content="Ayush Brijesh Patel — reinforcement learning and meta-RL researcher. First-author work on DRL for stacked intelligent metasurfaces.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,650;12..96,750&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --ground:#EDF0F3;
+  --surface:#FFFFFF;
+  --ink:#121925;
+  --ink-2:#3B4555;
+  --muted:#667183;
+  --rule:#D5DBE3;
+  --accent:#3438C9;
+  --accent-soft:#E3E4FA;
+  --ok:#1D7A55; --ok-soft:#DDF1E7;
+  --warn:#9A5B00; --warn-soft:#F8EBD3;
+  --plan:#4B5566; --plan-soft:#E6E9EE;
+  --canvas-bg:#F7F9FB;
+  --canvas-grid:#E2E7ED;
+  --phase-l:48%;
+  --s3:#1D7A9C;
+  --display:"Bricolage Grotesque", "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  --serif:"Source Serif 4", Georgia, "Times New Roman", serif;
+  --mono:"JetBrains Mono", ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --ground:#0C1017; --surface:#141A24; --ink:#E7EBF1; --ink-2:#BCC4D0; --muted:#8C96A6;
+    --rule:#263041; --accent:#9A9DFF; --accent-soft:#23264A;
+    --ok:#6FD3A6; --ok-soft:#13302A; --warn:#F0B865; --warn-soft:#352812; --plan:#AAB3C2; --plan-soft:#222A36;
+    --canvas-bg:#10151E; --canvas-grid:#1C2432; --phase-l:62%;
+    --s3:#6FC7E6;
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --ground:#0C1017; --surface:#141A24; --ink:#E7EBF1; --ink-2:#BCC4D0; --muted:#8C96A6;
+  --rule:#263041; --accent:#9A9DFF; --accent-soft:#23264A;
+  --ok:#6FD3A6; --ok-soft:#13302A; --warn:#F0B865; --warn-soft:#352812; --plan:#AAB3C2; --plan-soft:#222A36;
+  --canvas-bg:#10151E; --canvas-grid:#1C2432; --phase-l:62%;
+  --s3:#6FC7E6;
+}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}}
+body{
+  background:var(--ground); color:var(--ink);
+  font-family:var(--serif); font-size:17px; line-height:1.6;
+  padding-inline:20px;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1100px; margin-inline:auto}
+a{color:var(--accent); text-decoration-thickness:1px; text-underline-offset:3px}
+a:focus-visible, button:focus-visible, input:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:4px}
+
+/* ---------- nav ---------- */
+.nav{
+  position:sticky; top:env(safe-area-inset-top,0px); z-index:10;
+  background:color-mix(in srgb, var(--ground) 88%, transparent);
+  backdrop-filter:saturate(1.4) blur(10px); -webkit-backdrop-filter:saturate(1.4) blur(10px);
+  border-bottom:1px solid var(--rule);
+  margin-inline:-20px; padding:12px 20px;
+}
+.nav .wrap{display:flex; align-items:center; justify-content:space-between; gap:16px; flex-wrap:wrap}
+.mark{font-family:var(--display); font-weight:750; font-size:17px; letter-spacing:-.01em; color:var(--ink); text-decoration:none}
+.mark span{color:var(--accent)}
+.nav ul{list-style:none; margin:0; padding:0; display:flex; gap:18px; flex-wrap:wrap}
+.nav ul a{font-family:var(--mono); font-size:12.5px; color:var(--ink-2); text-decoration:none; letter-spacing:.02em}
+.nav ul a:hover{color:var(--accent)}
+
+/* ---------- hero ---------- */
+.hero{padding-block:72px 60px}
+.status{
+  display:inline-flex; align-items:center; gap:8px;
+  font-family:var(--mono); font-size:12px; letter-spacing:.04em; text-transform:uppercase;
+  color:var(--ok); background:var(--ok-soft); padding:5px 10px; border-radius:999px;
+}
+.status::before{content:""; width:7px; height:7px; border-radius:50%; background:var(--ok)}
+h1{
+  font-family:var(--display); font-weight:750; letter-spacing:-.035em; line-height:.98;
+  font-size:clamp(44px, 6.4vw, 78px); margin:18px 0 18px; text-wrap:balance;
+}
+h1 .last{color:var(--accent)}
+.thesis{font-size:20px; line-height:1.5; color:var(--ink-2); max-width:34ch; margin:0 0 26px; text-wrap:pretty}
+.thesis em{color:var(--ink); font-style:italic}
+.links{display:flex; flex-wrap:wrap; gap:10px}
+.btn{
+  font-family:var(--mono); font-size:13px; text-decoration:none;
+  display:inline-flex; align-items:center; gap:8px;
+  padding:9px 14px; border-radius:8px; border:1px solid var(--rule);
+  color:var(--ink); background:var(--surface); cursor:pointer;
+  transition:border-color .15s, transform .15s;
+}
+.btn:hover{border-color:var(--accent); transform:translateY(-1px)}
+.btn.primary{background:var(--ink); color:var(--ground); border-color:var(--ink)}
+.btn.primary:hover{background:var(--accent); border-color:var(--accent)}
+.hero-stats{list-style:none; margin:34px 0 0; padding:20px 0 0; border-top:1px solid var(--rule); display:flex; flex-wrap:wrap; gap:28px 36px}
+.hero-stats li{font-size:13.5px; color:var(--muted); line-height:1.4}
+.hero-stats strong{display:block; font-family:var(--display); font-weight:650; font-size:16px; color:var(--ink); letter-spacing:-.01em; margin-bottom:2px}
+
+/* ---------- sections ---------- */
+section{padding-block:56px; border-top:1px solid var(--rule)}
+.sec-head{display:grid; grid-template-columns:200px minmax(0,1fr); gap:32px; align-items:start}
+.eyebrow{font-family:var(--mono); font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--muted); padding-top:10px}
+h2{font-family:var(--display); font-weight:700; font-size:clamp(28px,3.6vw,38px); letter-spacing:-.025em; line-height:1.1; margin:0 0 18px; text-wrap:balance}
+h3{font-family:var(--display); font-weight:650; font-size:21px; letter-spacing:-.015em; line-height:1.25; margin:0; text-wrap:balance}
+.prose{max-width:66ch}
+.prose p{margin:0 0 1em; color:var(--ink-2)}
+.prose p strong{color:var(--ink); font-weight:600}
+
+/* research rows */
+.roadmap-intro{max-width:62ch; color:var(--ink-2); margin:-4px 0 28px}
+.projects{display:grid; gap:0}
+.proj{display:grid; grid-template-columns:minmax(0,1fr); gap:14px; padding-block:26px; border-bottom:1px solid var(--rule)}
+.proj:first-child{padding-top:4px}
+.proj:last-child{border-bottom:0}
+.proj-top{display:flex; justify-content:space-between; gap:16px; align-items:baseline; flex-wrap:wrap}
+.venue{font-family:var(--mono); font-size:12px; color:var(--muted)}
+.gc{display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:14px}
+.gc > div{padding:14px 16px; border-radius:10px; font-size:15.5px; line-height:1.55}
+.gap-box{background:var(--plan-soft); color:var(--ink-2)}
+.con-box{background:var(--accent-soft); color:var(--ink)}
+.gc b{display:block; font-family:var(--mono); font-weight:500; font-size:11px; letter-spacing:.08em; text-transform:uppercase; margin-bottom:6px}
+.gap-box b{color:var(--muted)}
+.con-box b{color:var(--accent)}
+.tags{display:flex; flex-wrap:wrap; gap:6px}
+.tag{font-family:var(--mono); font-size:11.5px; color:var(--ink-2); border:1px solid var(--rule); border-radius:6px; padding:2px 8px}
+
+/* roadmap timeline */
+.roadmap{position:relative; padding-left:28px}
+.roadmap::before{content:""; position:absolute; left:4px; top:10px; bottom:10px; width:2px; background:var(--rule)}
+.roadmap .proj{position:relative; padding-left:24px}
+.proj-dot{position:absolute; left:-29px; top:8px; width:10px; height:10px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 4px var(--accent-soft)}
+.proj-foot{display:flex; justify-content:space-between; align-items:center; gap:16px; flex-wrap:wrap; margin-top:2px}
+.proj-link{font-family:var(--mono); font-size:13px; font-weight:500; white-space:nowrap; text-decoration-thickness:1px; text-underline-offset:3px}
+@media (max-width:640px){
+  .roadmap{padding-left:22px}
+  .roadmap::before{left:2px}
+  .proj-dot{left:-23px}
+}
+
+/* publications */
+.pubs{list-style:none; margin:0; padding:0; counter-reset:p}
+.pubs li{display:grid; grid-template-columns:34px minmax(0,1fr) auto; gap:14px; padding-block:16px; border-bottom:1px solid var(--rule); align-items:start}
+.pubs li::before{counter-increment:p; content:"[" counter(p) "]"; font-family:var(--mono); font-size:13px; color:var(--muted); padding-top:2px}
+.pub-title{font-weight:600; color:var(--ink)}
+.pub-meta{font-size:15px; color:var(--muted)}
+.pub-meta .me{color:var(--ink); font-weight:600}
+.pill{font-family:var(--mono); font-size:11px; letter-spacing:.04em; text-transform:uppercase; padding:4px 9px; border-radius:999px; white-space:nowrap}
+.pill.pub{color:var(--ok); background:var(--ok-soft)}
+.pill.rev{color:var(--warn); background:var(--warn-soft)}
+.pill.prep{color:var(--plan); background:var(--plan-soft)}
+
+/* notebook */
+.notebook{
+  background:var(--surface); border:1px solid var(--rule); border-radius:14px; padding:26px 28px;
+  background-image:linear-gradient(var(--canvas-grid) 1px, transparent 1px);
+  background-size:100% 30px; background-position:0 14px;
+}
+.notebook p{margin:0 0 .9em; line-height:30px; color:var(--ink-2); max-width:68ch}
+.notebook .stamp{font-family:var(--mono); font-size:12px; color:var(--accent); letter-spacing:.04em}
+.eq{font-family:var(--mono); font-size:14px; color:var(--ink); background:var(--ground); padding:1px 6px; border-radius:4px}
+
+/* timeline */
+.tl{list-style:none; margin:0; padding:0}
+.tl li{display:grid; grid-template-columns:150px minmax(0,1fr); gap:24px; padding-block:18px; border-bottom:1px solid var(--rule)}
+.tl li:last-child{border-bottom:0}
+.when{font-family:var(--mono); font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; padding-top:3px}
+.tl p{margin:6px 0 0; color:var(--ink-2); font-size:16px}
+.org{font-size:15px; color:var(--muted); font-style:italic}
+
+/* contact */
+.contact-row{display:flex; flex-wrap:wrap; align-items:center; gap:12px}
+.email{font-family:var(--mono); font-size:15px; padding:9px 14px; border:1px dashed var(--rule); border-radius:8px; user-select:all; background:var(--surface)}
+.copied{font-family:var(--mono); font-size:12px; color:var(--ok)}
+
+footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:var(--mono); font-size:12px; color:var(--muted); display:flex; justify-content:space-between; gap:12px; flex-wrap:wrap}
+
+/* ---------- responsive ---------- */
+@media (max-width: 900px){
+  .hero{padding-block:48px}
+  .sec-head{grid-template-columns:minmax(0,1fr); gap:6px}
+  .eyebrow{padding-top:0}
+}
+@media (max-width: 620px){
+  body{font-size:16px}
+  .gc{grid-template-columns:minmax(0,1fr)}
+  .pubs li{grid-template-columns:28px minmax(0,1fr)}
+  .pubs li .pill{grid-column:2; justify-self:start}
+  .tl li{grid-template-columns:minmax(0,1fr); gap:2px}
+  .nav ul{gap:12px}
+  .notebook{padding:20px}
+  .hero-stats{gap:18px 28px}
+}
+</style>
+</head>
+<body>
+
+<nav class="nav" aria-label="Sections">
+  <div class="wrap">
+    <a class="mark" href="#top">Ayush B. Patel<span>.</span></a>
+    <ul>
+      <li><a href="#research">Research</a></li>
+      <li><a href="#publications">Publications</a></li>
+      <li><a href="#notebook">Notebook</a></li>
+      <li><a href="#experience">Experience</a></li>
+      <li><a href="#education">Education</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </div>
+</nav>
+
+<main class="wrap" id="top">
+  <header class="hero">
+    <span class="status">Applying to graduate programs · Fall 2027</span>
+    <h1>Ayush Brijesh <span class="last">Patel</span></h1>
+    <p class="thesis">I build reinforcement learning agents that <em>learn to be fair</em> and <em>adapt fast</em> when the environment keeps changing — tested on one of the hardest control problems in 6G wireless.</p>
+    <div class="links">
+      <a class="btn primary" href="#publications">Publications</a>
+      <a class="btn" href="https://ieeexplore.ieee.org/document/11310634" target="_blank" rel="noopener">IEEE Xplore ↗</a>
+      <a class="btn" href="#contact">Get in touch</a>
+    </div>
+    <ul class="hero-stats">
+      <li><strong>3</strong>first-author papers, same advisor</li>
+      <li><strong>SAC · fairness · GRPO</strong>one research line, three problems</li>
+      <li><strong>Oracle</strong>full-stack Java by day, RL by night</li>
+    </ul>
+  </header>
+
+  <section id="about" aria-labelledby="about-h">
+    <div class="sec-head">
+      <div class="eyebrow">About</div>
+      <div class="prose">
+        <h2 id="about-h">From a sixth-semester RL course to three first-author papers.</h2>
+        <p>I graduated from <strong>DA-IICT</strong>, Gandhinagar, with a B.Tech. (Honours) in Information and Communication Technology and a minor in Computational Science. Reinforcement learning became my subject in the sixth semester, in <strong>Prof. Abhishek Jindal</strong>'s course, where I earned a perfect 10/10. That course turned into a research internship and my B.Tech. major project under him.</p>
+        <p>Prof. Jindal works on both RL and wireless communication, and our research grew out of that overlap. We read the literature together, found the places where existing RL formulations for wireless optimization fell short, and set out to fix them. I went from struggling to see how anyone had framed a beamforming problem as an MDP to designing my own methods: first for <strong>fairness</strong>, then for <strong>fast adaptation</strong> in environments that do not sit still.</p>
+        <p>Today I work as a full-stack Java developer on <strong>Oracle Fusion HCM</strong>. In parallel I build RLHF pipelines (PPO, TRPO, GRPO) from scratch, because the policy-optimization ideas I use for metasurfaces are the same ones used to post-train language models and agents.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="research" aria-labelledby="research-h">
+    <div class="sec-head">
+      <div class="eyebrow">Research</div>
+      <div>
+        <h2 id="research-h">What was missing, and what I built</h2>
+        <p class="roadmap-intro">Three projects, one throughline: first make the optimization work, then make it fair, then make it adapt when the channel won't sit still. Each card opens to the full project page.</p>
+        <div class="projects roadmap">
+
+          <article class="proj">
+            <div class="proj-dot" aria-hidden="true"></div>
+            <div class="proj-top">
+              <h3>Rate optimization in distributed RIS-aided MIMO with Soft Actor-Critic</h3>
+              <span class="venue">IEEE VTC2025-Fall · published</span>
+            </div>
+            <div class="gc">
+              <div class="gap-box"><b>The gap</b>Jointly designing beamforming and phase shifts across several distributed surfaces is non-convex, with unit-modulus constraints coupling the surfaces. Iterative solvers have to re-run for every channel realization.</div>
+              <div class="con-box"><b>My contribution</b>A continuous-control MDP solved with Soft Actor-Critic. A single learned policy outputs the whole configuration in one forward pass, and entropy regularization keeps it exploring a multi-modal phase landscape.</div>
+            </div>
+            <div class="proj-foot">
+              <div class="tags"><span class="tag">SAC</span><span class="tag">distributed RIS</span><span class="tag">MIMO</span><span class="tag">continuous control</span></div>
+              <a class="proj-link" href="https://claude.ai/artifact/VsDjR9W96fkQ6N5uQYneAp" target="_blank" rel="noopener">View full project ↗</a>
+            </div>
+          </article>
+
+          <article class="proj">
+            <div class="proj-dot" aria-hidden="true"></div>
+            <div class="proj-top">
+              <h3>Max-min fairness in stacked intelligent metasurfaces via deep RL</h3>
+              <span class="venue">IEEE TMLCN · minor revision submitted</span>
+            </div>
+            <div class="gc">
+              <div class="gap-box"><b>The gap</b>Existing max-min designs for SIM-assisted downlinks use alternating optimization (geometric programming plus gradient descent-ascent), which must be re-solved for every channel realization. Prior DRL work on SIM optimized <em>sum-rate</em>, which can starve the weakest users.</div>
+              <div class="con-box"><b>My contribution</b>A deep RL formulation for the non-smooth max-min objective, where only the worst-off user drives the reward. It jointly learns transmit power and wave-domain phase shifts across every stacked layer, and it is objective-agnostic, so it carries over to other fairness-constrained allocation problems.</div>
+            </div>
+            <div class="proj-foot">
+              <div class="tags"><span class="tag">max-min fairness</span><span class="tag">SIM</span><span class="tag">MISO downlink</span><span class="tag">deep RL</span></div>
+              <a class="proj-link" href="https://claude.ai/artifact/QbZ35XM7tQejRb7yWS9z4q" target="_blank" rel="noopener">View full project ↗</a>
+            </div>
+          </article>
+
+          <article class="proj">
+            <div class="proj-dot" aria-hidden="true"></div>
+            <div class="proj-top">
+              <h3>Meta-RL with GRPO for fast adaptation to changing channels</h3>
+              <span class="venue">in preparation · targeting IEEE TVT / TMLCN</span>
+            </div>
+            <div class="gc">
+              <div class="gap-box"><b>The gap</b>A DRL policy trained for one set of channel conditions degrades when those conditions drift, and retraining from scratch is impractical in sequential, non-stationary environments like a real wireless link.</div>
+              <div class="con-box"><b>My contribution</b>A meta-RL framework built on Group Relative Policy Optimization. It is critic-free and uses group-normalized advantages, so a meta-learned policy adapts to a new channel regime in a few updates without waiting for a value function to catch up.</div>
+            </div>
+            <div class="proj-foot">
+              <div class="tags"><span class="tag">meta-RL</span><span class="tag">GRPO</span><span class="tag">non-stationary MDPs</span><span class="tag">stacked RIS</span></div>
+              <a class="proj-link" href="https://ayush010104.github.io/sim-meta-calibration-grpo/" target="_blank" rel="noopener">View full project ↗</a>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="publications" aria-labelledby="pubs-h">
+    <div class="sec-head">
+      <div class="eyebrow">Publications</div>
+      <div>
+        <h2 id="pubs-h">Publications</h2>
+        <ol class="pubs">
+          <li>
+            <div>
+              <div class="pub-title"><a href="https://ieeexplore.ieee.org/document/11310634" target="_blank" rel="noopener">Rate Optimization in Distributed RIS Aided MIMO System Using Soft Actor-Critic Method of DRL</a></div>
+              <div class="pub-meta"><span class="me">A. B. Patel</span>, A. Jindal · IEEE 102nd Vehicular Technology Conference (VTC2025-Fall), Chengdu, China, 2025</div>
+            </div>
+            <span class="pill pub">Published</span>
+          </li>
+          <li>
+            <div>
+              <div class="pub-title">Deep Reinforcement Learning Enabled Max-Min Fairness in Stacked Intelligent Metasurfaces Assisted MISO Downlink</div>
+              <div class="pub-meta"><span class="me">A. B. Patel</span>, A. Jindal · IEEE Transactions on Machine Learning in Communications and Networking</div>
+            </div>
+            <span class="pill rev">Minor revision submitted</span>
+          </li>
+          <li>
+            <div>
+              <div class="pub-title">Meta-Reinforcement Learning with Group Relative Policy Optimization for Fast Adaptation in Dynamic Stacked-RIS Channels</div>
+              <div class="pub-meta"><span class="me">A. B. Patel</span>, A. Jindal · targeting IEEE Trans. Vehicular Technology / IEEE TMLCN</div>
+            </div>
+            <span class="pill prep">In preparation</span>
+          </li>
+        </ol>
+      </div>
+    </div>
+  </section>
+
+  <section id="notebook" aria-labelledby="nb-h">
+    <div class="sec-head">
+      <div class="eyebrow">Lab notebook</div>
+      <div>
+        <h2 id="nb-h">The morning a few micrometres changed everything</h2>
+        <div class="notebook">
+          <p class="stamp">Entry · final week before submission</p>
+          <p>We were adding the last results to the paper. Re-reading the simulation code one morning, I found a single wrong multiplication. It changed a distance in the channel model by only a few micrometres, but in a stacked metasurface those distances enter the phase terms, and every result moved.</p>
+          <p>Weeks of analysis were gone. Prof. Jindal sat with me, re-checked the code line by line, and we rebuilt the GRPO framework on the corrected model. The new results were <strong>stronger than the ones we had lost</strong>.</p>
+          <p>What I kept from that morning: in high-dimensional optimization, <span class="eq">correct model &gt; good optimizer</span>. I now verify the environment before I trust anything a policy tells me.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="experience" aria-labelledby="exp-h">
+    <div class="sec-head">
+      <div class="eyebrow">Experience</div>
+      <div>
+        <h2 id="exp-h">Experience</h2>
+        <ul class="tl">
+          <li>
+            <span class="when">Jul 2025 — now</span>
+            <div>
+              <h3>Application Developer II, Full-Stack Java</h3>
+              <div class="org">Oracle · Fusion Recruiting Cloud (ORC), Gandhinagar</div>
+              <p>I build Redwood web-client features for job requisitions, candidate management and recruiter workflows — prescreening, questionnaires, configurable flexfields — and resolve production issues end to end across the Java services, data layer and UI of a large enterprise codebase.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">Jan — May 2025</span>
+            <div>
+              <h3>Teaching Assistant, Reinforcement Learning</h3>
+              <div class="org">DA-IICT · under Prof. Abhishek Jindal</div>
+              <p>Ran tutorials and lab sessions for the same RL course I'd taken the year before, designed lab assignments on core RL algorithms, and evaluated written and lab examinations.</p>
+            </div>
+          </li>
+          <li>
+            <span class="when">May — Jul 2024</span>
+            <div>
+              <h3>Research Intern, B.Tech. Major Project</h3>
+              <div class="org">DA-IICT · advised by Prof. Abhishek Jindal</div>
+              <p>Deep RL and meta-RL for RIS and stacked-metasurface wireless systems. First author on all three papers above.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="education" aria-labelledby="edu-h">
+    <div class="sec-head">
+      <div class="eyebrow">Education</div>
+      <div>
+        <h2 id="edu-h">Education</h2>
+        <ul class="tl">
+          <li>
+            <span class="when">2021 — 2025</span>
+            <div>
+              <h3>B.Tech. (Honours) in ICT, Minor in Computational Science</h3>
+              <div class="org">Dhirubhai Ambani Institute of Information and Communication Technology</div>
+              <p>CPI 8.5/10 · Reinforcement Learning 10/10 · coursework in machine learning, data mining, modelling &amp; simulation, and probability.</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" aria-labelledby="contact-h">
+    <div class="sec-head">
+      <div class="eyebrow">Contact</div>
+      <div>
+        <h2 id="contact-h">Working on meta-RL, RL post-training or agents? I'd like to hear from you.</h2>
+        <div class="contact-row">
+          <span class="email" id="email">abp01012015@gmail.com</span>
+          <button class="btn" type="button" id="copy">Copy email</button>
+          <span class="copied" id="copied" aria-live="polite"></span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Ayush Brijesh Patel</span>
+    <span>Reinforcement Learning · Meta-RL · Machine Learning · LLM Agents</span>
+  </footer>
+</main>
+
+<script>
+(function(){
+  /* ---------- copy email ---------- */
+  var copyBtn=document.getElementById('copy'), copied=document.getElementById('copied'), emailEl=document.getElementById('email');
+  copyBtn.addEventListener('click', function(){
+    var text=emailEl.textContent.trim();
+    function fallback(){
+      var r=document.createRange(); r.selectNodeContents(emailEl);
+      var s=window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      copied.textContent='Selected. Press Ctrl/Cmd+C to copy';
+    }
+    try{
+      navigator.clipboard.writeText(text).then(function(){copied.textContent='Copied';}, fallback);
+    }catch(e){fallback();}
+  });
+})();
+</script>
+</body>
+</html>
