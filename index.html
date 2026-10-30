@@ -247,7 +247,7 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
       <div class="eyebrow">Research</div>
       <div>
         <h2 id="research-h">What was missing, and what I built</h2>
-        <p class="roadmap-intro">Three projects, one throughline: first make the optimization work, then make it fair, then make it adapt when the channel won't sit still. Each card opens to the full project page.</p>
+        <p class="roadmap-intro">Four projects, one throughline: first make the optimization work, then make it fair, then make it adapt when the channel won't sit still &mdash; and, in robot manipulation, make a critic-free policy survive long enough to learn anything at all. Each card opens to the full project page.</p>
         <div class="projects roadmap">
 
           <article class="proj">
@@ -295,6 +295,22 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
             <div class="proj-foot">
               <div class="tags"><span class="tag">meta-RL</span><span class="tag">GRPO</span><span class="tag">non-stationary MDPs</span><span class="tag">stacked RIS</span></div>
               <a class="proj-link" href="https://ayush010104.github.io/sim-meta-calibration-grpo/" target="_blank" rel="noopener">View full project ↗</a>
+            </div>
+          </article>
+
+          <article class="proj">
+            <div class="proj-dot" aria-hidden="true"></div>
+            <div class="proj-top">
+              <h3>Finding and fixing GRPO's collapse in robot manipulation</h3>
+              <span class="venue">independent research · in progress</span>
+            </div>
+            <div class="gc">
+              <div class="gap-box"><b>The gap</b>Critic-free RL methods like GRPO promise cheaper robot-policy fine-tuning &mdash; no value network to train or store. Every critic-free method I tested collapsed to a permanent 0% success rate within a few dozen iterations, and the standard fix the method's own recipe specifies was never actually wired into the training loss.</div>
+              <div class="con-box"><b>My contribution</b>Traced the collapse to a specific mechanism &mdash; a gradient-norm blowup under group-std normalization on near-degenerate rollout groups &mdash; and fixed it by correctly implementing a KL-to-reference penalty. Combined with finding the real bottleneck was the behavior-cloning data, not the RL algorithm, this took a critic-free policy from 10% to 70% deterministic success on Meta-World pick-and-place.</div>
+            </div>
+            <div class="proj-foot">
+              <div class="tags"><span class="tag">GRPO</span><span class="tag">critic-free RL</span><span class="tag">robot manipulation</span><span class="tag">Meta-World</span></div>
+              <a class="proj-link" href="https://ayush010104.github.io/grpo-robot-manipulation/" target="_blank" rel="noopener">View full project ↗</a>
             </div>
           </article>
 
