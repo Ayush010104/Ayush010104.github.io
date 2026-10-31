@@ -115,6 +115,10 @@ h3{font-family:var(--display); font-weight:650; font-size:21px; letter-spacing:-
 .prose{max-width:66ch}
 .prose p{margin:0 0 1em; color:var(--ink-2)}
 .prose p strong{color:var(--ink); font-weight:600}
+.prose ul{list-style:none; margin:0 0 1.2em; padding:0; display:grid; gap:.6em}
+.prose ul li{color:var(--ink-2); padding-left:1.5em; position:relative; line-height:1.5}
+.prose ul li::before{content:"→"; position:absolute; left:0; color:var(--accent)}
+.prose ul li strong{color:var(--ink); font-weight:600}
 
 /* research rows */
 .roadmap-intro{max-width:62ch; color:var(--ink-2); margin:-4px 0 28px}
@@ -175,6 +179,16 @@ h3{font-family:var(--display); font-weight:650; font-size:21px; letter-spacing:-
 .tl li:last-child{border-bottom:0}
 .when{font-family:var(--mono); font-size:13px; color:var(--muted); font-variant-numeric:tabular-nums; padding-top:3px}
 .tl p{margin:6px 0 0; color:var(--ink-2); font-size:16px}
+.tl .proj-label{margin:6px 0 2px; color:var(--ink); font-weight:600; font-size:16px}
+.tl .bullets{list-style:none; margin:4px 0 0; padding:0; display:grid; gap:.3em}
+.tl .bullets li{display:block; padding:0 0 0 1.1em; border:0; color:var(--ink-2); font-size:16px; position:relative}
+.tl .bullets li::before{content:"•"; position:absolute; left:0; color:var(--accent)}
+.tl .roles{position:relative; list-style:none; margin:8px 0; padding-left:20px}
+.tl .roles::before{content:""; position:absolute; left:4px; top:6px; bottom:6px; width:2px; background:var(--rule)}
+.tl .roles li{position:relative; padding:3px 0}
+.tl .roles li::before{content:""; position:absolute; left:-20px; top:8px; width:8px; height:8px; border-radius:50%; background:var(--accent); box-shadow:0 0 0 3px var(--accent-soft)}
+.tl .roles .role-title{color:var(--ink); font-weight:600; font-size:15px}
+.tl .roles .role-when{color:var(--muted); font-family:var(--mono); font-size:11.5px; margin-left:8px}
 .org{font-size:15px; color:var(--muted); font-style:italic}
 
 /* contact */
@@ -210,7 +224,6 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
     <ul>
       <li><a href="#research">Research</a></li>
       <li><a href="#publications">Publications</a></li>
-      <li><a href="#notebook">Notebook</a></li>
       <li><a href="#experience">Experience</a></li>
       <li><a href="#education">Education</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -225,7 +238,7 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
     <p class="thesis">I build reinforcement learning agents that <em>learn to be fair</em> and <em>adapt fast</em> when the environment keeps changing — tested on one of the hardest control problems in 6G wireless.</p>
     <div class="links">
       <a class="btn primary" href="#publications">Publications</a>
-      <a class="btn" href="https://ieeexplore.ieee.org/document/11310634" target="_blank" rel="noopener">IEEE Xplore ↗</a>
+      <a class="btn" href="#experience">Experience</a>
       <a class="btn" href="#contact">Get in touch</a>
     </div>
   </header>
@@ -234,10 +247,19 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
     <div class="sec-head">
       <div class="eyebrow">About</div>
       <div class="prose">
-        <h2 id="about-h">From a sixth-semester RL course to three first-author papers.</h2>
-        <p>I graduated from <strong>DA-IICT</strong>, Gandhinagar, with a B.Tech. (Honours) in Information and Communication Technology and a minor in Computational Science. Reinforcement learning became my subject in the sixth semester, in <strong>Prof. Abhishek Jindal</strong>'s course, where I earned a perfect 10/10. That course turned into a research internship and my B.Tech. major project under him.</p>
-        <p>Prof. Jindal works on both RL and wireless communication, and our research grew out of that overlap. We read the literature together, found the places where existing RL formulations for wireless optimization fell short, and set out to fix them. I went from struggling to see how anyone had framed a beamforming problem as an MDP to designing my own methods: first for <strong>fairness</strong>, then for <strong>fast adaptation</strong> in environments that do not sit still.</p>
-        <p>Today I work as a full-stack Java developer on <strong>Oracle Fusion HCM</strong>. In parallel I build RLHF pipelines (PPO, TRPO, GRPO) from scratch, because the policy-optimization ideas I use for metasurfaces are the same ones used to post-train language models and agents.</p>
+        <h2 id="about-h">From a data-mining elective to three first-author papers.</h2>
+        <p>I build reinforcement learning agents that stay fair when resources are scarce and adapt when the world doesn't hold still.</p>
+        <p>It started with a data-mining elective at <strong>DA-IICT</strong> — cricket-score forecasting, followed by a disease-prediction project I kept extending long after the course ended. A reinforcement learning course the next semester, taught by <strong>Prof. Abhishek Jindal</strong>, turned that curiosity into something sharper: systems that don't just predict, but make decisions and improve through experience. That interest grew into a research internship, my B.Tech. major project, and three first-author research efforts:</p>
+        <ul>
+          <li><strong>Soft Actor-Critic for joint precoding and phase-shift optimization in RIS-aided MIMO</strong> — IEEE VTC2025-Fall (published).</li>
+          <li><strong>Max-min fairness in wireless resource allocation</strong> — optimization objectives that keep the worst-served user from being left behind (IEEE TMLCN, major revision).</li>
+          <li><strong>Critic-free GRPO for phase optimization under imperfect hardware</strong> — policies that adapt to practical hardware constraints (manuscript in preparation).</li>
+        </ul>
+        <p>My research interests have since expanded beyond wireless communication into other domains where reliable decision-making is challenging. In <strong>robotic manipulation</strong>, I've investigated gradient-explosion failure modes in critic-free reinforcement learning — studying how optimization instability affects an agent's ability to learn useful behaviours. I've also worked on a <strong>clinical decision-support agent</strong> designed to recognize uncertainty and know when to abstain rather than answer.</p>
+        <p>Across wireless systems, robotics, and healthcare, I'm interested in how policy optimization, reward design, and uncertainty shape what an agent can learn, how it adapts, and how reliably it makes decisions.</p>
+        <p>Outside research, I'm a full-stack developer at <strong>Oracle</strong>, working on Fusion Recruiting Cloud. Building production software keeps me grounded in a different but equally important question: what does it take to make a system work reliably beyond a controlled experiment?</p>
+        <p>I'm currently applying to graduate programs in <strong>Computer Science, Data Science, and AI/RL for Fall 2027</strong>, looking to deepen my research in reinforcement learning, adaptive decision-making, and intelligent systems.</p>
+        <p>Always happy to talk about reinforcement learning, meta-learning, robotics, optimization, or the places where these ideas break in the wild. Feel free to get in touch.</p>
       </div>
     </div>
   </section>
@@ -351,21 +373,6 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
     </div>
   </section>
 
-  <section id="notebook" aria-labelledby="nb-h">
-    <div class="sec-head">
-      <div class="eyebrow">Lab notebook</div>
-      <div>
-        <h2 id="nb-h">The morning a few micrometres changed everything</h2>
-        <div class="notebook">
-          <p class="stamp">Entry · final week before submission</p>
-          <p>We were adding the last results to the paper. Re-reading the simulation code one morning, I found a single wrong multiplication. It changed a distance in the channel model by only a few micrometres, but in a stacked metasurface those distances enter the phase terms, and every result moved.</p>
-          <p>Weeks of analysis were gone. Prof. Jindal sat with me, re-checked the code line by line, and we rebuilt the GRPO framework on the corrected model. The new results were <strong>stronger than the ones we had lost</strong>.</p>
-          <p>What I kept from that morning: in high-dimensional optimization, <span class="eq">correct model &gt; good optimizer</span>. I now verify the environment before I trust anything a policy tells me.</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <section id="experience" aria-labelledby="exp-h">
     <div class="sec-head">
       <div class="eyebrow">Experience</div>
@@ -375,8 +382,12 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
           <li>
             <span class="when">Jul 2025 — now</span>
             <div>
-              <h3>Application Developer II, Full-Stack Java</h3>
-              <div class="org">Oracle · Fusion Recruiting Cloud (ORC), Gandhinagar</div>
+              <h3>Oracle</h3>
+              <div class="org">Fusion Recruiting Cloud (ORC) · Full-stack Java · Gandhinagar, India</div>
+              <ul class="roles">
+                <li><span class="role-title">Application Developer - 2</span><span class="role-when">Oct 2026 — Present</span></li>
+                <li><span class="role-title">Application Developer - 1</span><span class="role-when">Jul 2025 — Sep 2026</span></li>
+              </ul>
               <p>I build Redwood web-client features for job requisitions, candidate management and recruiter workflows — prescreening, questionnaires, configurable flexfields — and resolve production issues end to end across the Java services, data layer and UI of a large enterprise codebase.</p>
             </div>
           </li>
@@ -385,15 +396,22 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
             <div>
               <h3>Teaching Assistant, Reinforcement Learning</h3>
               <div class="org">DA-IICT · under Prof. Abhishek Jindal</div>
-              <p>Ran tutorials and lab sessions for the same RL course I'd taken the year before, designed lab assignments on core RL algorithms, and evaluated written and lab examinations.</p>
+              <ul class="bullets">
+                <li>Conducted laboratories and tutorials, connecting mathematical foundations with practical implementations of reinforcement learning algorithms.</li>
+                <li>Developed lab assignments and evaluated written and laboratory examinations, providing feedback on conceptual understanding and implementation.</li>
+              </ul>
             </div>
           </li>
           <li>
             <span class="when">May — Jul 2024</span>
             <div>
-              <h3>Research Intern, B.Tech. Major Project</h3>
+              <h3>Research Intern</h3>
               <div class="org">DA-IICT · advised by Prof. Abhishek Jindal</div>
-              <p>Deep RL and meta-RL for RIS and stacked-metasurface wireless systems. First author on all three papers above.</p>
+              <p class="proj-label">Reinforcement Learning Project</p>
+              <ul class="bullets">
+                <li>Solved an optimization problem using RL algorithms.</li>
+                <li>Optimization problem: spectral-energy efficient resource allocation in RIS-aided FD-MIMO systems.</li>
+              </ul>
             </div>
           </li>
         </ul>
@@ -412,7 +430,6 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
             <div>
               <h3>B.Tech. (Honours) in ICT, Minor in Computational Science</h3>
               <div class="org">Dhirubhai Ambani Institute of Information and Communication Technology</div>
-              <p>CPI 8.5/10 · Reinforcement Learning 10/10 · coursework in machine learning, data mining, modelling &amp; simulation, and probability.</p>
             </div>
           </li>
         </ul>
@@ -424,7 +441,7 @@ footer{padding-block:32px 48px; border-top:1px solid var(--rule); font-family:va
     <div class="sec-head">
       <div class="eyebrow">Contact</div>
       <div>
-        <h2 id="contact-h">Working on meta-RL, RL post-training or agents? I'd like to hear from you.</h2>
+        <h2 id="contact-h">Working on RL — wireless systems, robotics, or healthcare AI agents? I'd like to hear from you.</h2>
         <div class="contact-row">
           <span class="email" id="email">abp01012015@gmail.com</span>
           <button class="btn" type="button" id="copy">Copy email</button>
